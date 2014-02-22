@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "File Upload Control Problems";
+}
+
+<h2>Problem with Conventional Browsers</h2>
+
+<p>You must view this page in different browsers. You will observe that the file input control renders differently.</p>
+
+@using (@Html.BeginForm("doupload", "upload", FormMethod.Post, new{ enctype="multipart/form-data"}))
+{
+    <input type="file" name="uploadedFile" />
+    <input type="submit" value="Upload" />
+}

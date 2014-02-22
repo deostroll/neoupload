@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "New File Upload";
+}
+
+<h2>New File Upload Demonstration</h2>
+
+<a id="upload-button" href="#">Select</a>
+<label id="selected-file"></label>
+
+@section scripts{
+    <script src="~/Scripts/jquery.deoupload1.js"></script>
+    <script>
+        $(function () {
+            $('#upload-button').makeUpload({
+                onChange: function (fname) {
+                    $('#selected-file').html(fname);
+                },
+                onUploadComplete: function (data) {
+                    //alert(data);
+                    $(document.body).append("<p>File successfully uploaded with name: " + data + "</p>");
+                    var lbl = $(this).next();
+                    alert($(this).parent().html());
+                    lbl.html(lbl.text() + ' is uploaded to the server');
+                },
+                url: 'doupload',
+                keyName: 'uploadedFile'
+            });
+        });
+    </script>
+}
