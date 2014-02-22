@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Uploading Multiple Files";
+}
+
+<h2>Multiple File Uploads</h2>
+<p>This sample demonstrates multiple file upload scenario with the plugin</p>
+<p>For this example we've intensionally set <i>autoUpload</i> to <span style="font-family:'Courier New'">false</span></p>
+<table>
+    <tr>
+        <td>
+            <a id="btnupload1" href="#" data-target="file1">Select</a>
+        </td>
+        <td>
+            File not selected...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="btnupload2" href="#" data-target="file2">Select</a>
+        </td>
+        <td>
+            File not selected...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="btnupload3" href="#" data-target="file3">Select</a>
+        </td>
+        <td>
+            File not selected...
+        </td>
+    </tr>
+</table>
+<form method="post" action="save">
+    <input type="hidden" id="file1" name="file1" value="-1" />
+    <input type="hidden" id="file2" name="file2" value="-1"/>
+    <input type="hidden" id="file3" name="File3" value="-1"/>
+    <input type="button" value="Submit" id="bsubmit"/>
+</form>
+
+@section scripts{
+    <script src="~/Scripts/jquery.deoupload2.js"></script>
+    <script>
+        $(function () {
+            $('a').makeUpload({
+                url: 'doupload',
+                keyName: 'uploadedFile',
+                autoUpload: false,
+                onChange: function (fname) {
+                    console.log(fname);
+                    var $this = $(this);
+                    $this.closest('td').next().html('File selected: ' + fname);
+                    var id = '#' + $this.attr('data-target');
+                    $(id).val(fname);                    
+                },
+                onUploadComplete: function (dt) {
+                    console.log(dt);
+                    var id = '#' + $(this).attr('data-target');
+                    $(id).val(dt);
+                },
+                submitButton: '#bsubmit',
+                onAllUploadDone: function () {
+                    document.forms[0].submit();
+                }
+            });
+
+        });
+    </script>
+}
